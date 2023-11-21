@@ -1,0 +1,82 @@
+
+clients {
+	client_id int pk > orders.client_id
+	new_field integer
+	first_name varchar
+	last_name varchar
+	middle_name varchar
+	birth_date date
+	effective_from_dttm timestamp
+	effective_to_dttm timestamp
+	is_active_flg boolean def(true)
+	deleted_flg boolean def(false)
+	processed_dttm timestamp def(current_timestamp)
+}
+
+orders {
+	order_id int pk > orderproducts.order_id
+	client_id int pk
+	order_date date
+	order_amount decimal
+	currency varchar def(rub)
+	order_status varchar
+	effective_from_dttm timestamp
+	effective_to_dttm timestamp
+	is_active_flg boolean def(true)
+	deleted_flg boolean def(false)
+	processed_dttm timestamp def(current_timestamp)
+}
+
+products {
+	product_id int pk > orderproducts.product_id
+	product_name varchar
+	description text
+	price decimal
+	category varchar
+	brand varchar
+	effective_from_dttm timestamp
+	effective_to_dttm timestamp
+	is_active_flg boolean def(true)
+	deleted_flg boolean def(false)
+	processed_dttm timestamp def(current_timestamp)
+}
+
+orderproducts {
+	order_id int pk
+	product_id int pk
+	effective_from_dttm timestamp
+	effective_to_dttm timestamp
+	is_active_flg boolean def(true)
+	deleted_flg boolean def(false)
+	processed_dttm timestamp def(current_timestamp)
+}
+
+deliveryaddresses {
+	client_id int pk > clients.client_id
+	address_id string pk
+	delivery_address text
+	country varchar
+	city varchar
+	street varchar
+	house_number varchar
+	apartment_number varchar
+	additional_details text
+	effective_from_dttm timestamp
+	effective_to_dttm timestamp
+	is_active_flg boolean def(true)
+	deleted_flg boolean def(false)
+	processed_dttm timestamp def(current_timestamp)
+}
+
+clientmetadata {
+	metadata_id int pk
+	client_id int pk > clients.client_id
+	session_start_time timestamp
+	session_end_time timestamp
+	additional_analytics_data text
+	effective_from_dttm timestamp
+	effective_to_dttm timestamp
+	is_active_flg boolean def(true)
+	deleted_flg boolean def(false)
+}
+
